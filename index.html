@@ -8,10 +8,9 @@
 
     <title>Trin Basics-Jeffrey</title>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
-
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <style>
         table,
         td,
@@ -29,12 +28,32 @@
         td {
             padding: 15px;
         }
+        
+        .menu-trinityschoolcyclesnackmenu,
+        .menu-k1lunchmenu,
+        underline-color {
+            display: none;
+        }
+        
+        .period-value {
+            font-style: italic;
+        }
+        
+        .item {
+            margin-left: 10px;
+        }
+        
+        .content {
+            text-align: left;
+            font-size: 14px;
+        }
     </style>
 </head>
 
 <body>
 
     <table id="container"></table>
+    <div id="lunch"></div>
     <script>
         var url = 'https://trinityschoolnyc.myschoolapp.com/podium/feed/iCal.aspx?q=C6FFDF411193582890253A1FB7D8D635B859FB0C1DEA02F192200DC1DE62849D52E80831949CDAE62DE3508FF8109720A35EF9940407D837622BE4BF14BF265D';
         var calData;
@@ -186,17 +205,25 @@
             return oDate;
         }
 
-        function decodeHtml(html) { //http://stackoverflow.com/questions/7394748/whats-the-right-way-to-decode-a-string-that-has-special-html-entities-in-it
+        function decodeHtml(html) {
             var txt = document.createElement("textarea");
             txt.innerHTML = html;
             return txt.value;
         }
-        /*if (description[i] != undefined && description[i].indexOf("  ") != -1) {
-                                document.write(dtend[i] + ':  ' + summary[i] + "<br>" + description[i].replace(/  /g, "<br><br>") + "<br><br>");
-                            }
-            */
-    </script>
 
+        $.ajax({
+            url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%27http%3A%2F%2Fwww.myschooldining.com%2FTrinityNYC%2F%3Fcmd%3Dmenus%27&format=xml&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys',
+            type: 'GET',
+            success: function (data) {
+                lunch.innerHTML = $(data).find('#calendar_week').html();
+                var element = document.getElementsByName("daily_offerings")[0];
+                element.parentNode.removeChild(element);
+                $('.no-print').remove();
+                $('.weekend').remove();
+
+            }
+        });
+    </script>
 </body>
 
 </html>

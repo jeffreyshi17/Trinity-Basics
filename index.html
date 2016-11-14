@@ -29,6 +29,10 @@
             padding: 15px;
         }
         
+        .nextday {
+            background-color: #ffeded;
+        }
+        
         .menu-trinityschoolcyclesnackmenu,
         .menu-k1lunchmenu,
         .underline-color {
@@ -166,7 +170,7 @@
             tablerow.appendChild(t3);
             tablerow.appendChild(t4);
             container.appendChild(tablerow);
-
+            var nextday = 99999999;
             for (i = 0; i < dtend.length; i++) {
                 if (dtend[i] > date) {
                     var tr = document.createElement('tr');
@@ -179,6 +183,10 @@
                     td3.innerHTML = summary[i];
                     if (description[i] != "undefined") {
                         td4.innerHTML = description[i];
+                    }
+                    if (dtend[i] <= nextday) {
+                        nextday = dtend[i];
+                        tr.className = "nextday";
                     }
                     tr.appendChild(td1);
                     tr.appendChild(td2);

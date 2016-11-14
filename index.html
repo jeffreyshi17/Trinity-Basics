@@ -172,7 +172,7 @@
             container.appendChild(tablerow);
             var nextday = 99999999;
             for (i = 0; i < dtend.length; i++) {
-                if (dtend[i] > date) {
+                if (dtend[i] >= date) {
                     var tr = document.createElement('tr');
                     var td1 = document.createElement('td');
                     var td2 = document.createElement('td');
